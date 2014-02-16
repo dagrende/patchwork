@@ -1,0 +1,10 @@
+<div id="board">
+    <div class="my-notes">
+        <div class="note" ng-repeat="note in notes" ng-click="editNote(notes.indexOf(note))">{{note.text}}</div>
+        <div class="flex-fill"></div>
+        <div class="new-note" ng-click="createNote()">New</div>
+    </div>
+    <div class="board-notes">
+        <div class="note" style="position: relative; top: {{note.y}}px; left: {{note.x}}px;" ng-repeat="note in boardNotes">{{note.note.text}}</div>
+    </div>
+</div>
