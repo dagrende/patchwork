@@ -8,7 +8,7 @@ angular.module('patchworkApp', [
 ]).service('board', function() {
   console.log('service board');
   return {notes: [{text:'hej'}, {text:'du'}],
-    boardNotes: [{x: 100, y: 20, note: {text: 'glade'}}]};
+    boardNotes: []};
 })
 .config(function ($routeProvider) {
   $routeProvider
@@ -43,4 +43,36 @@ angular.module('patchworkApp', [
 .controller('ViewNoteCtrl', function ($scope, $routeParams, $location, board) {
   var noteId = $routeParams.noteId;
   $scope.note = board.notes[noteId];
+})
+.directive('draggableFrom', function(board) {
+  return {
+    restrict: 'A',
+    link: function(scope, elm, attr) {
+      var downX, downY;
+      $(elm).draggable();
+      $(elm).mousedown(function(ev) {
+        downX = ev.clientX;
+        downY = ev.clientY;
+      });
+      $(elm).mouseup(function(ev) {
+        var dx = ev.clientX - downX;
+        var dy = ev.clientY - downY;
+        if (dx*dx + dy*dy < 9) {
+          // click
+          window.location.href = '#/edit/' + attr.draggableFrom;
+        } else {
+          // drag
+          console.log(ev);
+          console.log($('#board-notes').offset());
+          var noteIndex = attr.draggableFrom;
+          var x = ev.pageX - ev.offsetX;
+          var y = ev.pageY - ev.offsetY;
+          console.log('x',x,'y',y);
+          board.boardNotes.push({x: x, y: y, note:board.notes[noteIndex]});
+          board.notes.splice(noteIndex, 1);
+          scope.$apply();
+        }
+      });
+    }
+  }
 });

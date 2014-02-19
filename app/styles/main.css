@@ -1,18 +1,14 @@
 #board {
-    display: table;
-    height: 100%;
     width: 100%;
 }
-.board-notes {
-    height: 100%;
-    display:table-row;
+#board-notes {
 }
-html,body
-{
-    height:100%;
-    width:100%;
-}
+
 .my-notes {
+    display: flex;
+    flex-direction: row;
+}
+.notes-row {
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid #000000;
