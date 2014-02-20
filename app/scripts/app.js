@@ -25,10 +25,22 @@ angular.module('patchworkApp', [
   });
 })
 .controller('BoardCtrl', function ($scope, board) {
+  function findPos(obj) {
+    var curleft = 0;
+    var curtop = 0;
+    if (obj.offsetParent) {
+      do {
+        curleft += obj.offsetLeft;
+        curtop += obj.offsetTop;
+      } while (obj = obj.offsetParent);
+    }
+    return {x:curleft, y:curtop};
+  }
   $('#board').height(window.innerHeight + 'px');
-  board.notes = board.notes.filter(function(item, i) {return item.text;});
-      $scope.notes = board.notes;
-      $scope.boardNotes = board.boardNotes;
+  board.notes = board.notes.filter(function(item) {return item.text;});
+  $scope.notes = board.notes;
+  $scope.boardNotes = board.boardNotes;
+  $scope.base = findPos($('#board-notes').get(0));
 
   $scope.editNote = function(id) {
     window.location.href = '#/edit/' + id;
@@ -62,13 +74,12 @@ angular.module('patchworkApp', [
           window.location.href = '#/edit/' + attr.draggableFrom;
         } else {
           // drag
-          console.log(ev);
-          console.log($('#board-notes').offset());
           var noteIndex = attr.draggableFrom;
-          var x = ev.pageX - ev.offsetX;
-          var y = ev.pageY - ev.offsetY;
-          console.log('x',x,'y',y);
-          board.boardNotes.push({x: x, y: y, note:board.notes[noteIndex]});
+          var base = $('#board-notes').offset();
+          var x = ev.pageX - ev.offsetX - base.left;
+          var y = ev.pageY - ev.offsetY - base.top;
+          var boardNote = {x: x, y: y, note:board.notes[noteIndex]};
+          board.boardNotes.push(boardNote);
           board.notes.splice(noteIndex, 1);
           scope.$apply();
         }
