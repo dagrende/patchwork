@@ -7,6 +7,7 @@
         <div class="new-note" ng-click="createNote()">New</div>
     </div>
     <div id="board-notes">
-        <div class="note" style="position: absolute; left: {{base.x + note.x}}px; top: {{base.y + note.y}}px;" ng-repeat="note in boardNotes">{{note.note.text}}</div>
+        <div class="note" draggable-on-board="{{boardNotes.indexOf(note)}}" style="position: absolute; left: {{base.x + note.x}}px; top: {{base.y + note.y}}px;"
+             ng-repeat="note in boardNotes">{{note.note.text}}</div>
     </div>
 </div>

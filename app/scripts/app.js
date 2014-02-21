@@ -61,7 +61,6 @@ angular.module('patchworkApp', [
     restrict: 'A',
     link: function(scope, elm, attr) {
       var downX, downY;
-      $(elm).draggable();
       $(elm).mousedown(function(ev) {
         downX = ev.clientX;
         downY = ev.clientY;
@@ -72,17 +71,49 @@ angular.module('patchworkApp', [
         if (dx*dx + dy*dy < 9) {
           // click
           window.location.href = '#/edit/' + attr.draggableFrom;
+        }
+      });
+      var dragEnd = function(ev, ui) {
+        // drag
+        var noteIndex = attr.draggableFrom;
+        var note = board.notes[noteIndex];
+        var base = $('#board-notes').offset();
+        var x = ev.pageX - ev.offsetX - base.left;
+        var y = ev.pageY - ev.offsetY - base.top;
+        if (y < 0) {
+          ui.helper[0].style.left = 0;
+          ui.helper[0].style.top = 0;
         } else {
-          // drag
-          var noteIndex = attr.draggableFrom;
-          var base = $('#board-notes').offset();
-          var x = ev.pageX - ev.offsetX - base.left;
-          var y = ev.pageY - ev.offsetY - base.top;
-          var boardNote = {x: x, y: y, note:board.notes[noteIndex]};
+          var boardNote = {x: x, y: y, note:note};
           board.boardNotes.push(boardNote);
           board.notes.splice(noteIndex, 1);
-          scope.$apply();
         }
+        scope.$apply();
+      };
+        $(elm).draggable({
+        stop: dragEnd
+      });
+    }
+  }
+}).directive('draggableOnBoard', function(board) {
+  return {
+    restrict: 'A',
+    link: function(scope, elm, attr) {
+      var dragEnd = function(ev, ui) {
+        var noteIndex = attr.draggableOnBoard;
+        var boardNote = board.boardNotes[noteIndex]
+        var base = $('#board-notes').offset();
+        boardNote.x = ev.pageX - ev.offsetX - base.left;
+        boardNote.y = ev.pageY - ev.offsetY - base.top;
+        if (boardNote.y < 0) {
+          // drop in my notes area
+          board.boardNotes.splice(noteIndex, 1);
+          board.notes.push(boardNote.note);
+        }
+        scope.$apply();
+      }
+      $(elm).draggable({
+        stop: dragEnd
       });
     }
   }
