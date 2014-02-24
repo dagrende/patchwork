@@ -1,13 +1,14 @@
 <div id="board">
     <div class="notes-row">
         <div class="my-notes">
-            <div class="note" draggable-from="{{notes.indexOf(note)}}" ng-repeat="note in notes">{{note.text}}</div>
+            <div class="note" draggable-from="{{note.id}}" ng-repeat="note in getNotes()">{{note.text}}</div>
         </div>
         <div class="flex-fill"></div>
         <div class="new-note" ng-click="createNote()">New</div>
     </div>
     <div id="board-notes">
-        <div class="note" draggable-on-board="{{boardNotes.indexOf(note)}}" style="position: absolute; left: {{base.x + note.x}}px; top: {{base.y + note.y}}px;"
-             ng-repeat="note in boardNotes">{{note.note.text}}</div>
+        <div class="note" draggable-on-board="{{note.note.id}}"
+             style="position: absolute; left: {{base.x + note.x}}px; top: {{base.y + note.y}}px;"
+             ng-repeat="note in getBoardNotes()">{{note.note.text}}</div>
     </div>
 </div>
