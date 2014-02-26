@@ -6,76 +6,12 @@ angular.module('patchworkApp', [
   'ngSanitize',
   'ngRoute'
 ]).service('board', function() {
-  var notes = [];
-  var boardNotes = [];
-  var guid = function(){
-    // http://www.broofa.com/2008/09/javascript-uuid-function/
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
-        return v.toString(16);
-      }
-    );
+  var f = BoardModel();
+  var trx = {
+    send: function(method, args, result) {console.log('send', method, args, result)},
+    onReceive: function() {console.log('onReceive')}
   };
-  var indexOfNote = function(id) {
-    for (var i in notes) {
-      if (id === notes[i].id) {
-        return i;
-      }
-    }
-    return undefined;
-  };
-  var indexOfBoardNote = function(id) {
-    for (var i in boardNotes) {
-      if (id === boardNotes[i].note.id) {
-        return i;
-      }
-    }
-    return undefined;
-  };
-  var f = {
-    findNote: function(id) {
-      var i = indexOfNote(id);
-      return i && notes[i];
-    },
-    findBoardNote: function(id) {
-      var i = indexOfBoardNote(id);
-      return i && boardNotes[i];
-    },
-    getNotes: function(){
-      return notes.filter(function(note) {return !f.findBoardNote(note.id)});
-    },
-	  getBoardNotes: function(){
-      return boardNotes;
-    },
-	  createNote: function(text){
-      var newNote = {id:guid(), text:text};
-      notes.push(newNote);
-      return newNote;
-    },
-	  deleteNote: function(id){
-      this.unplaceNote(id);
-      var i = indexOfNote(id);
-      if (i) {
-        notes.splice(i, 1);
-      }
-    },
-	  placeNote: function(id, x, y) {
-      boardNotes.push({x:x, y:y, note:this.findNote(id)});
-    },
-	  unplaceNote: function(id){
-      var i = indexOfBoardNote(id);
-      if (i) {
-        boardNotes.splice(i, 1);
-      }
-    },
-	  moveBoardNote: function(id, x, y) {
-      var bn = this.findBoardNote(id);
-      if (bn) {
-        bn.x = x;
-        bn.y = y;
-      }
-    }
-  };
+  new RemoteEnabler(f, ['createNote', 'placeNote', 'unplaceNote', 'moveBoardNote', 'setNoteText'], trx);
   f.createNote('hej');
   var n = f.createNote('du');
   f.placeNote(n.id, 100, 100);
@@ -99,7 +35,7 @@ angular.module('patchworkApp', [
   function findPos(obj) {
     var curleft = 0;
     var curtop = 0;
-    if (obj.offsetParent) {
+    if (obj && obj.offsetParent) {
       do {
         curleft += obj.offsetLeft;
         curtop += obj.offsetTop;
@@ -124,7 +60,15 @@ angular.module('patchworkApp', [
 })
 .controller('ViewNoteCtrl', function ($scope, $routeParams, $location, board) {
   var noteId = $routeParams.noteId;
-  $scope.note = board.findNote(noteId);
+  var note = board.findNote(noteId);
+  $scope.text = note.text;
+  $scope.save = function() {
+    board.setNoteText(noteId, $scope.text);
+    $location.path('/');
+  }
+  $scope.delete = function () {
+    console.log('delete');
+  };
 })
 .directive('draggableFrom', function(board) {
   return {
@@ -167,6 +111,19 @@ angular.module('patchworkApp', [
   return {
     restrict: 'A',
     link: function(scope, elm, attr) {
+      var downX, downY;
+      $(elm).mousedown(function(ev) {
+        downX = ev.clientX;
+        downY = ev.clientY;
+      });
+      $(elm).mouseup(function(ev) {
+        var dx = ev.clientX - downX;
+        var dy = ev.clientY - downY;
+        if (dx*dx + dy*dy < 9) {
+          // click
+          window.location.href = '#/edit/' + attr.draggableOnBoard;
+        }
+      });
       var dragEnd = function(ev) {
         var noteId = attr.draggableOnBoard;
         var boardNote = board.findBoardNote(noteId);

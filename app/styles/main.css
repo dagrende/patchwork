@@ -1,3 +1,41 @@
+.toprow {
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.gray-bottom-divider {
+    border: 0;
+    border-bottom:0.1em solid #c9c9c9;
+}
+
+.left-button {
+    margin: 0 0 0 0.5em;
+    vertical-align: middle;
+}
+
+.right-button {
+    margin: 0 0.5em 0 0;
+    vertical-align: middle;
+}
+
+.centered-title {
+    -webkit-flex: 1;
+    flex: 1;
+    text-align: center;
+    font-size: 140%;
+    font-weight: 600;
+    padding: 0.2em 0 0.3em 0;
+    margin: 0;
+}
+
+.flex-fill {
+    -webkit-flex: 1;
+    flex: 1;
+}
+
 #board {
     width: 100%;
 }
