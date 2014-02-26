@@ -13,8 +13,8 @@ angular.module('patchworkApp', [
   };
   new RemoteEnabler(f, ['createNote', 'placeNote', 'unplaceNote', 'moveBoardNote', 'setNoteText'], trx);
   f.createNote('hej');
-  var n = f.createNote('du');
-  f.placeNote(n.id, 100, 100);
+  var id = f.createNote('du');
+  f.placeNote(id, 100, 100);
   return f;
 })
 .config(function ($routeProvider) {
@@ -55,7 +55,7 @@ angular.module('patchworkApp', [
   };
 
   $scope.createNote = function() {
-    window.location.href = '#/edit/' + board.createNote('').id;
+    window.location.href = '#/edit/' + board.createNote('');
   };
 })
 .controller('ViewNoteCtrl', function ($scope, $routeParams, $location, board) {

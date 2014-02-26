@@ -53,36 +53,40 @@ describe('test BoardModel', function() {
     var n1 = bm.createNote('hej');
     var n2 = bm.createNote('du');
     var n3 = bm.createNote('glade');
-    expect(bm.findNote(n2.id)).toBe(n2);
+    expect(bm.findNote(n2).id).toBe(n2);
   });
 
   it('create and place three notes, find the second one', function() {
-    var n1 = bm.createNote('hej'); bm.placeNote(n1.id, 10, 10);
-    var n2 = bm.createNote('du'); bm.placeNote(n2.id, 10, 20);
-    var n3 = bm.createNote('glade'); bm.placeNote(n3.id, 10, 30);
-    expect(bm.findBoardNote(n2.id)).toEqual({note:n2, x:10, y:20});
+    var n1 = bm.createNote('hej'); bm.placeNote(n1, 10, 10);
+    var n2 = bm.createNote('du'); bm.placeNote(n2, 10, 20);
+    var n3 = bm.createNote('glade'); bm.placeNote(n3, 10, 30);
+    var bn = bm.findBoardNote(n2);
+    expect(bn.note.id).toEqual(n2);
+    expect(bn.x).toEqual(10);
+    expect(bn.y).toEqual(20);
   });
 
   it('create two notes, delete the first and the second one should remain', function() {
     var n1 = bm.createNote('hej');
     var n2 = bm.createNote('du');
-    bm.deleteNote(n1.id);
+    bm.deleteNote(n1);
     expect(bm.getNotes().length).toBe(1);
     expect(bm.getNotes()[0].text).toBe('du');
   });
 
   it('placed note should not be in getNotes(), but in getBoardNotes()', function() {
     var n1 = bm.createNote('hej');
-    bm.placeNote(n1.id, 10, 20);
+    bm.placeNote(n1, 10, 20);
+    var bn = bm.getBoardNotes()[0];
     expect(bm.getNotes().length).toBe(0);
     expect(bm.getBoardNotes().length).toBe(1);
-    expect(bm.getBoardNotes()[0]).toEqual({note:n1, x:10, y:20});
+    expect(bm.getBoardNotes()[0]).toEqual(bn);
   });
 
   it('placed and unplaced note should be back in getNotes()', function() {
     var n1 = bm.createNote('hej');
-    bm.placeNote(n1.id, 10, 20);
-    bm.unplaceNote(n1.id);
+    bm.placeNote(n1, 10, 20);
+    bm.unplaceNote(n1);
     expect(bm.getNotes().length).toBe(1);
     expect(bm.getBoardNotes().length).toBe(0);
   });
@@ -95,7 +99,7 @@ describe('test RemoteEnabler', function() {
   beforeEach(function() {
 
     serviceToSpyOn = {
-      createNote: function(text) {return {id:'qwe', text:text}}
+      createNote: function(text) {return 'qwe'}
     }
 
     service = {
@@ -119,7 +123,7 @@ describe('test RemoteEnabler', function() {
   it('service with RemoteEnabler should still work when called', function() {
     var result = service.createNote('hej');
     expect(serviceToSpyOn.createNote).toHaveBeenCalledWith('hej');
-    expect(txr.send).toHaveBeenCalledWith('createNote', ['hej'], {id:'qwe', text:'hej'});
+    expect(txr.send).toHaveBeenCalledWith('createNote', ['hej'], 'qwe');
   });
 
   it('trx should be able to call service', function() {

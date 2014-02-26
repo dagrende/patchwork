@@ -46,7 +46,7 @@ function BoardModel() {
     createNote: function(text){
       var newNote = {id:guid(), text:text};
       notes.push(newNote);
-      return newNote;
+      return newNote.id;
     },
     deleteNote: function(id){
       this.unplaceNote(id);
