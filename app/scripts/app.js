@@ -12,8 +12,8 @@ angular.module('patchworkApp', [
     onReceive: function() {console.log('onReceive')}
   };
   new RemoteEnabler(f, ['createNote', 'placeNote', 'unplaceNote', 'moveBoardNote', 'setNoteText'], trx);
-  f.createNote('hej');
-  var id = f.createNote('du');
+  f.createNote({text:'hej'});
+  var id = f.createNote({text:'du'});
   f.placeNote(id, 100, 100);
   return f;
 })
@@ -55,7 +55,7 @@ angular.module('patchworkApp', [
   };
 
   $scope.createNote = function() {
-    window.location.href = '#/edit/' + board.createNote('');
+    window.location.href = '#/edit/' + board.createNote({text:''});
   };
 })
 .controller('ViewNoteCtrl', function ($scope, $routeParams, $location, board) {
@@ -63,7 +63,7 @@ angular.module('patchworkApp', [
   var note = board.findNote(noteId);
   $scope.text = note.text;
   $scope.save = function() {
-    board.setNoteText(noteId, $scope.text);
+    board.setNoteAttr(noteId, {text: $scope.text});
     $location.path('/');
   }
   $scope.delete = function () {

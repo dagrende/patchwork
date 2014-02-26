@@ -43,8 +43,11 @@ function BoardModel() {
     getBoardNotes: function(){
       return boardNotes;
     },
-    createNote: function(text){
-      var newNote = {id:guid(), text:text};
+    createNote: function(attrMap){
+      var newNote = {id:guid()};
+      for (key in attrMap) {
+        newNote[key] = attrMap[key];
+      }
       notes.push(newNote);
       return newNote.id;
     },
@@ -71,10 +74,12 @@ function BoardModel() {
         bn.y = y;
       }
     },
-    setNoteText: function(id, text) {
+    setNoteAttr: function(id, attrMap) {
       var note = this.findNote(id);
       if (note) {
-        note.text = text;
+        for (key in attrMap) {
+          note[key] = attrMap[key];
+        }
       }
     }
   };
