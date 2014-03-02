@@ -11,7 +11,7 @@ angular.module('patchworkApp', [
     send: function(method, args, result) {console.log('send', method, args, result)},
     onReceive: function() {console.log('onReceive')}
   };
-  new RemoteEnabler(f, ['createNote', 'placeNote', 'unplaceNote', 'moveBoardNote', 'setNoteText'], trx);
+  new RemoteEnabler(f, ['createNote', 'placeNote', 'unplaceNote', 'moveBoardNote', 'setNoteAttr'], trx);
   f.createNote({text:'hej'});
   var id = f.createNote({text:'du'});
   f.placeNote(id, 100, 100);

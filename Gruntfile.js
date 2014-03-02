@@ -47,7 +47,7 @@ module.exports = function (grunt) {
       },
       livereload: {
         options: {
-          livereload: '<%= connect.options.livereload %>'
+          livereload: true
         },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
@@ -58,36 +58,34 @@ module.exports = function (grunt) {
     },
 
     // The actual grunt server settings
-    connect: {
+    express: {
       options: {
-        port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: '0.0.0.0',
-        livereload: 35729
+        port: process.env.PORT || 9000
       },
-      livereload: {
+      dev: {
         options: {
-          open: true,
-          base: [
-            '.tmp',
-            '<%= yeoman.app %>'
-          ]
+          script: 'server.js',
+          debug: true,
+          node_env: 'dev'
         }
       },
       test: {
         options: {
-          port: 9001,
-          base: [
-            '.tmp',
-            'test',
-            '<%= yeoman.app %>'
-          ]
+          script: 'server.js',
+          node_env: 'dev'
         }
       },
       dist: {
         options: {
-          base: '<%= yeoman.dist %>'
+          script: 'dist/server',
+          node_env: 'dev'
         }
+      }
+    },
+
+    open: {
+      server: {
+        url: 'http://localhost:<%= express.options.port %>'
       }
     },
 
@@ -327,7 +325,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
+      return grunt.task.run(['build', 'express:dist']);
     }
 
     grunt.task.run([
@@ -335,7 +333,8 @@ module.exports = function (grunt) {
       'bower-install',
       'concurrent:server',
       'autoprefixer',
-      'connect:livereload',
+      'express:dev',
+      'open',
       'watch'
     ]);
   });
@@ -349,7 +348,7 @@ module.exports = function (grunt) {
     'clean:server',
     'concurrent:test',
     'autoprefixer',
-    'connect:test',
+    'express:test',
     'karma'
   ]);
 
