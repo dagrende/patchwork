@@ -5,16 +5,21 @@ angular.module('patchworkApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute'
-]).service('board', function() {
+]).service('board', function($rootScope) {
   var f = BoardModel();
   var trx = {
     send: function(method, args, result) {console.log('send', method, args, result)},
     onReceive: function() {console.log('onReceive')}
   };
-  new RemoteEnabler(f, ['createNote', 'placeNote', 'unplaceNote', 'moveBoardNote', 'setNoteAttr'], trx);
-  f.createNote({text:'hej'});
-  var id = f.createNote({text:'du'});
-  f.placeNote(id, 100, 100);
+  var socket = io.connect('http://localhost:9000');
+  trx = new SocketIoTranceiver(socket);
+  var redrawTrigger = function() {
+    $rootScope.$apply();
+  }
+  new RemoteEnabler(f, ['createNote', 'placeNote', 'unplaceNote', 'moveBoardNote', 'setNoteAttr'], trx, redrawTrigger);
+//  f.createNote({text:'hej'});
+//  var id = f.createNote({text:'du'});
+//  f.placeNote(id, 100, 100);
   return f;
 })
 .config(function ($routeProvider) {

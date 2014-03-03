@@ -1,7 +1,7 @@
 /**
  * Created by dag on 2014-02-24.
  */
-function RemoteEnabler(service, methods, transceiver) {
+function RemoteEnabler(service, methods, transceiver, receiveNofifier) {
   var interceptorByMethod = {};
   var MethodInterceptor = function(service, method) {
     var originalMethod = service[method];
@@ -11,11 +11,14 @@ function RemoteEnabler(service, methods, transceiver) {
       return  result;
     };
     this.callOriginalMethod = function(args) {
-      originalMethod.apply(service, args);
+     originalMethod.apply(service, args);
     };
   };
   var receiveHandler = function(method, args){
     interceptorByMethod[method].callOriginalMethod(args);
+    if (receiveNofifier) {
+      receiveNofifier();
+    }
   };
 
   for (var i in methods) {

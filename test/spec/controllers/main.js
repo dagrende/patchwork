@@ -131,5 +131,19 @@ describe('test RemoteEnabler', function() {
     expect(serviceToSpyOn.createNote).toHaveBeenCalledWith({text: 'hej'});
     expect(txr.send).not.toHaveBeenCalled();
   });
+});
+
+describe('test Socket.io tranceiver', function() {
+  var service, serviceToSpyOn, txr, socket;
+
+  beforeEach(function() {
+    socket = jasmine.createSpyObj('socket', ['emit', 'on']);
+    txr = new SocketIoTranceiver(socket);
+  });
+
+  it('should send a string when send is called', function() {
+    txr.send('qwe', ['asd'], 'zxc');
+    expect(socket.emit).toHaveBeenCalledWith(jasmine.any(String), jasmine.any(Object));
+  });
 
 });
