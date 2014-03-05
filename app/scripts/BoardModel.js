@@ -75,7 +75,6 @@ function BoardModel() {
       }
     },
     setNoteAttr: function(id, attrMap) {
-      console.log('setNoteAttr(', id, ', ', attrMap, ')');
       var note = this.findNote(id);
       if (note) {
         for (key in attrMap) {
