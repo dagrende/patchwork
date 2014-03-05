@@ -11,7 +11,7 @@ angular.module('patchworkApp', [
     send: function(method, args, result) {console.log('send', method, args, result)},
     onReceive: function() {console.log('onReceive')}
   };
-  var socket = io.connect('http://localhost:9000');
+  var socket = io.connect();
   trx = new SocketIoTranceiver(socket);
   var redrawTrigger = function() {
     $rootScope.$apply();
