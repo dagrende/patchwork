@@ -4,7 +4,7 @@
             <div class="note" draggable-from="{{note.id}}" ng-repeat="note in getNotes()">{{note.text}}</div>
         </div>
         <div class="flex-fill"></div>
-        <div class="new-note" ng-click="createNote()">New</div>
+        <div class="new-note" ng-click="createNote()"><img src="images/plus.png"> </div>
     </div>
     <div id="board-notes">
         <div class="note" draggable-on-board="{{note.note.id}}"
