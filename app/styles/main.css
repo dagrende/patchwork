@@ -1,8 +1,8 @@
 .toprow {
-    display: -webkit-flex;
-    -webkit-flex-direction: row;
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
     align-items: center;
 }
 
@@ -22,8 +22,8 @@
 }
 
 .centered-title {
-    -webkit-flex: 1;
     flex: 1;
+    -webkit-flex: 1;
     text-align: center;
     font-size: 140%;
     font-weight: 600;
@@ -32,8 +32,8 @@
 }
 
 .flex-fill {
-    -webkit-flex: 1;
     flex: 1;
+    -webkit-flex: 1;
 }
 
 #board {
@@ -44,11 +44,15 @@
 
 .my-notes {
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
 }
 .notes-row {
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
     border-bottom: 1px solid #000000;
     padding: 0.2em 0.2em 0.15em 0.2em;
     background-color: #f8f8ff;
@@ -79,11 +83,14 @@
 
 .fill-form-with-footer {
     display: flex;
+    display: -webkit-flex;
     flex-direction: column;
+    -webkit-flex-direction: column;
 }
 
 .flex-fill {
     flex: 1;
+    -webkit-flex: 1;
 }
 
 /* Space out content a bit */
