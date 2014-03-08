@@ -7,9 +7,11 @@ var server = http.createServer(app);
 
 
 var io = require('socket.io').listen(server);
+io.set('log level', 1); // reduce logging
 
 // here are all received events stored
 var boardModelEventLog = [];
+
 
 io.sockets.on('connection', function (socket) {
   console.log('connected socket.io')

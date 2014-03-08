@@ -5,13 +5,21 @@ angular.module('patchworkApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute'
-]).service('board', function($rootScope) {
+]).service('socket', function() {
+  var socket = io.connect();
+  socket.on('connect', function() {
+    console.log("connect");
+  });
+  socket.on('disconnect', function() {
+    console.log("disconnect");
+  });
+  return  socket;
+}).service('board', function(socket, $rootScope) {
   var f = BoardModel();
   var trx = {
     send: function(method, args, result) {console.log('send', method, args, result)},
     onReceive: function() {console.log('onReceive')}
   };
-  var socket = io.connect();
   trx = new SocketIoTranceiver(socket);
   var redrawTrigger = function() {
     $rootScope.$apply();
@@ -36,7 +44,7 @@ angular.module('patchworkApp', [
     redirectTo: '/'
   });
 })
-.controller('BoardCtrl', function ($scope, board) {
+.controller('BoardCtrl', function ($scope, board, socket) {
   function findPos(obj) {
     var curleft = 0;
     var curtop = 0;
