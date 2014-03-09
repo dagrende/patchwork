@@ -27,7 +27,7 @@
             // we have been connected to a server session
             if (this.currentServerSessionId == data.serverSessionId) {
               // it is the same server session now
-              if (this.lastMessageNo < data.messageNo) {
+              if (parseInt(this.lastMessageNo) < parseInt(data.messageNo)) {
                 // higher messageNo than last one - process it
                 shouldProcessMessage = true;
               }
@@ -41,11 +41,11 @@
           }
           this.currentServerSessionId = data.serverSessionId;
           if (shouldProcessMessage) {
-            console.log("reveive and process",data);
+            console.log("receive and process",data);
             this.lastMessageNo = data.messageNo;
             onReceiveHandler(data.methodName, data.args);
           } else {
-            console.log("reveive and skip",data);
+            console.log("receive and skip",data);
           }
         }
       };

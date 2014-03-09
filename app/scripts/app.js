@@ -20,7 +20,7 @@ angular.module('patchworkApp', [
   var redrawTrigger = function() {
     $rootScope.$apply();
   }
-  new RemoteEnabler(f, ['clearAll', 'createNote', 'placeNote', 'unplaceNote', 'moveBoardNote', 'setNoteAttr'], trx, redrawTrigger);
+  new RemoteEnabler(f, ['clearAll', 'createNote', 'deleteNote', 'placeNote', 'unplaceNote', 'moveBoardNote', 'setNoteAttr'], trx, redrawTrigger);
   return f;
 })
 .config(function ($routeProvider) {
@@ -72,8 +72,9 @@ angular.module('patchworkApp', [
     board.setNoteAttr(noteId, {text: $scope.text});
     $location.path('/');
   }
-  $scope.delete = function () {
-    console.log('delete');
+  $scope.deleteNote = function () {
+    board.deleteNote(noteId);
+    $location.path('/');
   };
 })
 .directive('draggableFrom', function(board) {
