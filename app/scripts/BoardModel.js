@@ -43,6 +43,10 @@ function BoardModel() {
     getBoardNotes: function(){
       return boardNotes;
     },
+    clearAll: function() {
+      notes = [];
+      boardNotes = [];
+    },
     createNote: function(attrMap){
       var newNote = {id:guid()};
       for (key in attrMap) {

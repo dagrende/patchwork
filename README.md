@@ -64,13 +64,15 @@ creation and keeps it in all clients throughout the board life-time.
 
 ### Client
 
+![class diagram](http://yuml.me/diagram/scruffy;/class/[RemoteEnabler]->[BoardModel], [RemoteEnabler]->[SocketIoTransceiver], [BoardController]->[BoardModel], [SocketIoTransceiver]->[Socket.io])
+
 * BoardController
     * Listens to BoardModel changes and updates the user interface
 * BoardModel
     * Maintains the Board, Notes, BoardNotes etc
 * RemoteEnabler
-    * Listens to board changes and uses the transceiver to send to server
-    * Calls methods in BoardModel for messages received from the transceiver
+    * Listens to method calls to BoardModel and uses the transceiver to send them in JSON form to server
+    * Calls BoardModel methods for JSON messages received from the transceiver
 * SocketIoTransceiver
     * Communicates with server using Socket.io
 
@@ -82,7 +84,8 @@ creation and keeps it in all clients throughout the board life-time.
 ## Communication protocol
 
 * Client sends all model changes as JSON objects to the server
-* Server broadcasts all received messages
+* Server saves all received messages in a board log and broadcasts them to all except the sender
+* When a client connects to the server, the server sends back all messages in the board log
 
 ### Client to server
 

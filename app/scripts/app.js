@@ -16,18 +16,11 @@ angular.module('patchworkApp', [
   return  socket;
 }).service('board', function(socket, $rootScope) {
   var f = BoardModel();
-  var trx = {
-    send: function(method, args, result) {console.log('send', method, args, result)},
-    onReceive: function() {console.log('onReceive')}
-  };
-  trx = new SocketIoTranceiver(socket);
+  var trx = new SocketIoTranceiver(socket);
   var redrawTrigger = function() {
     $rootScope.$apply();
   }
-  new RemoteEnabler(f, ['createNote', 'placeNote', 'unplaceNote', 'moveBoardNote', 'setNoteAttr'], trx, redrawTrigger);
-//  f.createNote({text:'hej'});
-//  var id = f.createNote({text:'du'});
-//  f.placeNote(id, 100, 100);
+  new RemoteEnabler(f, ['clearAll', 'createNote', 'placeNote', 'unplaceNote', 'moveBoardNote', 'setNoteAttr'], trx, redrawTrigger);
   return f;
 })
 .config(function ($routeProvider) {

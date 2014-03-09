@@ -1,7 +1,7 @@
 /**
  * Created by dag on 2014-02-24.
  */
-function RemoteEnabler(service, methods, transceiver, receiveNofifier) {
+function RemoteEnabler(service, methods, transceiver, receiveNotifier) {
   var interceptorByMethod = {};
   var MethodInterceptor = function(service, method) {
     var originalMethod = service[method];
@@ -16,8 +16,8 @@ function RemoteEnabler(service, methods, transceiver, receiveNofifier) {
   };
   var receiveHandler = function(method, args){
     interceptorByMethod[method].callOriginalMethod(args);
-    if (receiveNofifier) {
-      receiveNofifier();
+    if (receiveNotifier) {
+      receiveNotifier();
     }
   };
 

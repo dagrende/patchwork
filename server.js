@@ -1,33 +1,48 @@
 var express = require('express');
+var uuid = require('uuid-v4');
+var http = require('http');
+
 var port = process.env.PORT || 3000;
 
 var app = express();
-var http = require('http');
 var server = http.createServer(app);
-
 
 var io = require('socket.io').listen(server);
 io.set('log level', 1); // reduce logging
 
+var serverSessionId = uuid();
+
+
 // here are all received events stored
-var boardModelEventLog = [];
+var boardModelEventLog = [{ methodName: 'clearAll',
+  args: [],
+  result: undefined,
+  messageNo: '0',
+  serverSessionId: serverSessionId }];
 
 
 io.sockets.on('connection', function (socket) {
-  console.log('connected socket.io')
+  console.log('connected client ',socket.id);
   // emit all stored events
   for (var i in boardModelEventLog) {
-    emitBoardModelEvent(socket, boardModelEventLog[i]);
+    console.log('send log item ' + (i + 1) + '/' + boardModelEventLog.length ,boardModelEventLog[i]);
+    emitBoardModelEvent(socket, i, boardModelEventLog[i]);
   }
 
   socket.on('boardModelEvent', function (data) {
-    console.log('received',data);
+    console.log('received from ',socket.id,data);
+    var messageNo = boardModelEventLog.length;
     boardModelEventLog.push(data);
-    emitBoardModelEvent(socket.broadcast, data);
+    emitBoardModelEvent(socket.broadcast, messageNo, data);
+  });
+  socket.on('disconnect', function () {
+    console.log('disconnect client ',socket.id);
   });
 });
 
-var emitBoardModelEvent = function(socket, data) {
+var emitBoardModelEvent = function(socket, messageNo, data) {
+  data.messageNo = messageNo;
+  data.serverSessionId = serverSessionId;
   if (data.methodName === 'createNote') {
     data.args[0].id = data.result;
   }
