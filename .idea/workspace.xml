@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="032e156a-1529-4400-abf6-63abca027767" name="Default" comment="now server sends a clearAll command first in log to clear clients with outdated notes, and then client keps track of messageNo from server and skips already processed messages">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/BoardModel.js" afterPath="$PROJECT_DIR$/app/scripts/BoardModel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/RemoteEnabler.js" afterPath="$PROJECT_DIR$/app/scripts/RemoteEnabler.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/SocketIoTranceiver.js" afterPath="$PROJECT_DIR$/app/scripts/SocketIoTranceiver.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/app.js" afterPath="$PROJECT_DIR$/app/scripts/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+    <list default="true" id="032e156a-1529-4400-abf6-63abca027767" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gruntfile.js" afterPath="$PROJECT_DIR$/Gruntfile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -52,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SocketIoTranceiver.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SocketIoTranceiver.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/SocketIoTranceiver.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5533981" vertical-offset="165" max-vertical-offset="1155">
-              <caret line="30" column="62" selection-start="1069" selection-end="1069" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="1155">
+              <caret line="21" column="49" selection-start="597" selection-end="597" />
               <folding />
             </state>
           </provider>
@@ -98,18 +93,18 @@
       <file leaf-file-name="Gruntfile.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Gruntfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1028" max-vertical-offset="5745">
-              <caret line="77" column="13" selection-start="1895" selection-end="1895" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="775" max-vertical-offset="5745">
+              <caret line="62" column="38" selection-start="1632" selection-end="1632" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="1230">
-              <caret line="38" column="11" selection-start="1119" selection-end="1119" />
+            <state vertical-scroll-proportion="0.5825243" vertical-offset="555" max-vertical-offset="1290">
+              <caret line="57" column="43" selection-start="1608" selection-end="1608" />
               <folding />
             </state>
           </provider>
@@ -152,7 +147,6 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/test/spec/controllers/main.js" />
         <option value="$PROJECT_DIR$/bower.json" />
-        <option value="$PROJECT_DIR$/Gruntfile.js" />
         <option value="$PROJECT_DIR$/app/styles/main.css" />
         <option value="$PROJECT_DIR$/app/views/board.html" />
         <option value="$PROJECT_DIR$/app/scripts/RemoteEnabler.js" />
@@ -160,8 +154,9 @@
         <option value="$PROJECT_DIR$/app/index.html" />
         <option value="$PROJECT_DIR$/app/scripts/BoardModel.js" />
         <option value="$PROJECT_DIR$/app/scripts/app.js" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/app/scripts/SocketIoTranceiver.js" />
+        <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/Gruntfile.js" />
       </list>
     </option>
   </component>
@@ -438,7 +433,11 @@
       <created>1394376945218</created>
       <updated>1394376945218</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="now server sends a clearAll command first in log to clear clients with outdated notes, and then client keps track of messageNo from server and skips already processed messages">
+      <created>1394377219414</created>
+      <updated>1394377219414</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -513,7 +512,8 @@
     <MESSAGE value="added license and documentation" />
     <MESSAGE value="reduced server socket.io logging&#10;adjusted viewport to disable zoom on textarea focusing&#10;added client logging of connect/disconnect socket.io" />
     <MESSAGE value="removed socket.io-client.js from bower_components as it can be served from inside the socket.io server" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed socket.io-client.js from bower_components as it can be served from inside the socket.io server" />
+    <MESSAGE value="now server sends a clearAll command first in log to clear clients with outdated notes, and then client keps track of messageNo from server and skips already processed messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="now server sends a clearAll command first in log to clear clients with outdated notes, and then client keps track of messageNo from server and skips already processed messages" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -807,31 +807,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Gruntfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1028" max-vertical-offset="5745">
-          <caret line="77" column="13" selection-start="1895" selection-end="1895" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/board.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="300">
           <caret line="14" column="0" selection-start="620" selection-end="620" />
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.2222223" vertical-offset="1032" max-vertical-offset="1755">
-          <caret line="80" column="7" selection-start="1938" selection-end="1938" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bower.json">
@@ -874,18 +855,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
+    <entry file="file://$PROJECT_DIR$/app/scripts/SocketIoTranceiver.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="1230">
-          <caret line="38" column="11" selection-start="1119" selection-end="1119" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="1155">
+          <caret line="21" column="49" selection-start="597" selection-end="597" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/SocketIoTranceiver.js">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5533981" vertical-offset="165" max-vertical-offset="1155">
-          <caret line="30" column="62" selection-start="1069" selection-end="1069" />
+        <state vertical-scroll-proportion="-6.2222223" vertical-offset="1032" max-vertical-offset="1755">
+          <caret line="80" column="7" selection-start="1938" selection-end="1938" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gruntfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="775" max-vertical-offset="5745">
+          <caret line="62" column="38" selection-start="1632" selection-end="1632" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5825243" vertical-offset="555" max-vertical-offset="1290">
+          <caret line="57" column="43" selection-start="1608" selection-end="1608" />
           <folding />
         </state>
       </provider>

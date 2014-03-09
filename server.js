@@ -54,7 +54,11 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use(require('connect-livereload')());
+app.configure('livereload', function(){
+  app.use(require('connect-livereload')());
+  app.use(express.static(__dirname + '/.tmp'));
+  app.use(express.static(__dirname + '/app'));
+});
 
 app.configure('dev', function(){
   app.use(express.static(__dirname + '/.tmp'));

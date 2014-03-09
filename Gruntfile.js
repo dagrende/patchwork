@@ -62,7 +62,7 @@ module.exports = function (grunt) {
       options: {
         port: process.env.PORT || 9000
       },
-      dev: {
+      livereload: {
         options: {
           script: 'server.js',
           debug: true,
@@ -333,7 +333,7 @@ module.exports = function (grunt) {
       'bower-install',
       'concurrent:server',
       'autoprefixer',
-      'express:dev',
+      'express:livereload',
 //      'open',
       'watch'
     ]);
