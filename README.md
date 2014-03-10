@@ -74,12 +74,25 @@ creation and keeps it in all clients throughout the board life-time.
     * Listens to method calls to BoardModel and uses the transceiver to send them in JSON form to server
     * Calls BoardModel methods for JSON messages received from the transceiver
 * SocketIoTransceiver
-    * Communicates with server using Socket.io
+    * Communicates with server using [Socket.io](http://socket.io)
 
 ## User Interface
 
-* Board
-* Note editor
+![Main board view](app/images/main-board-small.png)
+
+- Top row shows the notes that have not been placed on the board. Click on the green note to create a new note and type a text in the note editor to create a new note.
+- Drag a note from the top down to the board to place it. Drag from board to top row to return it to remove it from the board.
+- Click on note in top row or in board to edit the text.
+
+![Edit Note view](app/images/edit-note-small.png)
+
+- Edit the text in the text area
+- Click ![done](app/images/done-check.png) to save it
+- Click ![cancel](app/images/cancel-x.png) to cancel the change
+- Click ![waste basket](app/images/delete.png) to delete the note
+
+ All the operations return to the board.
+
 
 ## Communication protocol
 
@@ -89,23 +102,30 @@ creation and keeps it in all clients throughout the board life-time.
 
 ### Client to server
 
-{ methodName: 'createNote',
-  args: { '0': { text: '' } },
-  result: '4d4b59f7-20c1-4064-8f92-4271f232d1e0' }
+{methodName: 'createNote', args: [{text: ''}],
+  result: '4d4b59f7-20c1-4064-8f92-4271f232d1e0'}
 
-{ methodName: 'setNoteAttr',
-  args:
-   { '0': '4d4b59f7-20c1-4064-8f92-4271f232d1e0',
-     '1': { text: 'hello' } } }
+{methodName: 'setNoteAttr',
+  args: ['4d4b59f7-20c1-4064-8f92-4271f232d1e0', { text: 'hello' }]}
 
-{ methodName: 'placeNote',
-  args:
-   { '0': '4d4b59f7-20c1-4064-8f92-4271f232d1e0',
-     '1': 108,
-     '2': 47.234375 } }
+{methodName: 'placeNote',
+  args: ['4d4b59f7-20c1-4064-8f92-4271f232d1e0', 108, 47.234375]}
 
-{ methodName: 'unplaceNote',
-  args: { '0': '4d4b59f7-20c1-4064-8f92-4271f232d1e0' } }
+{methodName: 'unplaceNote',
+  args: ['4d4b59f7-20c1-4064-8f92-4271f232d1e0']}
 
 
 ### Server to client
+
+{methodName: 'createNote',
+  args: [{ id: '4d4b59f7-20c1-4064-8f92-4271f232d1e0', text: '' }]}
+
+{methodName: 'setNoteAttr',
+  args: ['4d4b59f7-20c1-4064-8f92-4271f232d1e0', { text: 'hello' }]}
+
+{methodName: 'placeNote',
+  args: ['4d4b59f7-20c1-4064-8f92-4271f232d1e0', 108, 47.234375]}
+
+{methodName: 'unplaceNote',
+  args: ['4d4b59f7-20c1-4064-8f92-4271f232d1e0']}
+
