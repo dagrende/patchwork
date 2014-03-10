@@ -8,7 +8,7 @@
     </div>
     <div id="board-notes">
         <div class="note" draggable-on-board="{{note.note.id}}"
-             style="position: absolute; left: {{base.x + note.x}}px; top: {{base.y + note.y}}px;"
+             style="position: absolute; left: {{base.x + note.x}}px; top: {{base.y + note.y}}px; background-color: {{hotcolor(note.changed)}};"
              ng-repeat="note in getBoardNotes()">{{note.note.text}}</div>
     </div>
 </div>

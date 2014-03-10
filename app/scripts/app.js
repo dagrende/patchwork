@@ -37,7 +37,7 @@ angular.module('patchworkApp', [
     redirectTo: '/'
   });
 })
-.controller('BoardCtrl', function ($scope, board, socket) {
+.controller('BoardCtrl', function ($scope, board, socket, $interval, $timeout) {
   function findPos(obj) {
     var curleft = 0;
     var curtop = 0;
@@ -55,6 +55,49 @@ angular.module('patchworkApp', [
   $scope.getNotes = board.getNotes;
   $scope.getBoardNotes = board.getBoardNotes;
   $scope.base = findPos($('#board-notes').get(0));
+
+  function interpolateColor(minColor,maxColor,maxDepth,depth){
+    function d2h(d) {return d.toString(16);}
+    function h2d(h) {return parseInt(h,16);}
+
+    if(depth <= 0){
+      return minColor;
+    }
+    if(depth >= maxDepth){
+      return maxColor;
+    }
+
+    var color = "#";
+
+    for(var i=1; i <= 6; i+=2){
+      var minVal = new Number(h2d(minColor.substr(i,2)));
+      var maxVal = new Number(h2d(maxColor.substr(i,2)));
+      var nVal = minVal + (maxVal-minVal) * (depth/maxDepth);
+      var val = d2h(Math.floor(nVal));
+      while(val.length < 2){
+        val = "0"+val;
+      }
+      color += val;
+    }
+    return color;
+  }
+
+  $scope.hotcolor = function(changedTime) {
+    var age = Date.now() - changedTime;
+    return interpolateColor('ff8800', 'ffffa0', 5000, age);
+  };
+
+  var hotAnimator = $interval(function() {
+    $timeout(function() {
+      angular.forEach(board.getBoardNotes(), function(bn) {
+        bn.age = (bn.age || 16) - 1;
+      });
+    });
+  }, 50);
+
+  $scope.$on('$destroy', function() {
+    $interval.cancel(hotAnimator);
+  });
 
   $scope.editNote = function(id) {
     window.location.href = '#/edit/' + id;

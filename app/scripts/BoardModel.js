@@ -63,7 +63,7 @@ function BoardModel() {
       }
     },
     placeNote: function(id, x, y) {
-      boardNotes.push({x:x, y:y, note:this.findNote(id)});
+      boardNotes.push({x:x, y:y, note:this.findNote(id), changed:Date.now()});
     },
     unplaceNote: function(id){
       var i = indexOfBoardNote(id);
@@ -76,6 +76,7 @@ function BoardModel() {
       if (bn) {
         bn.x = x;
         bn.y = y;
+        bn.changed = Date.now();
       }
     },
     setNoteAttr: function(id, attrMap) {
