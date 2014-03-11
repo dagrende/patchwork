@@ -15,7 +15,8 @@
   "dependencies": {
     "express": "3.4.8",
     "socket.io": "~0.9.16",
-    "uuid-v4": "~0.1.0"
+    "uuid-v4": "~0.1.0",
+    "bower": "~1.2.8"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
