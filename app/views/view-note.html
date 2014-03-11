@@ -1,8 +1,9 @@
 <div class="fill-form-with-footer">
     <div class="toprow gray-bottom-divider">
-        <a class="left-button" href="#/"><img src="images/x.png"/></a>
-        <h2 class="centered-title"></h2>
-        <a class="right-button" ng-click="deleteNote()"><img src="images/delete.png"/></a>
+        <a class="left-button" ng-click="cancel()"><img src="images/x.png"/></a>
+        <div class="flex-fill"></div>
+        <a class="right-button" ng-click="deleteNote()" ng-hide="isCreate"><img src="images/delete.png"/></a>
+        <div class="flex-fill"></div>
         <a class="right-button" ng-click="save()"><img src="images/done-check.png"/></a>
     </div>
     <textarea class="flex-fill" ng-model="text" autofocus="true"></textarea>

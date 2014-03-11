@@ -20,7 +20,8 @@ angular.module('patchworkApp', [
   var redrawTrigger = function() {
     $rootScope.$apply();
   }
-  new RemoteEnabler(f, ['clearAll', 'createNote', 'deleteNote', 'placeNote', 'unplaceNote', 'moveBoardNote', 'setNoteAttr'], trx, redrawTrigger);
+  new RemoteEnabler(f, ['clearAll', 'createNote', 'deleteNote', 'placeNote',
+    'unplaceNote', 'moveBoardNote', 'setNoteAttr'], trx, redrawTrigger);
   return f;
 })
 .config(function ($routeProvider) {
@@ -28,6 +29,10 @@ angular.module('patchworkApp', [
   .when('/', {
     templateUrl: 'views/board.html',
     controller: 'BoardCtrl'
+  })
+  .when('/create', {
+    templateUrl: 'views/view-note.html',
+    controller: 'CreateNoteCtrl'
   })
   .when('/edit/:noteId', {
     templateUrl: 'views/view-note.html',
@@ -61,13 +66,28 @@ angular.module('patchworkApp', [
   };
 
   $scope.createNote = function() {
-    window.location.href = '#/edit/' + board.createNote({text:''});
+    window.location.href = '#/create';
   };
 })
+.controller('CreateNoteCtrl', function ($scope, $routeParams, $location, board) {
+  $scope.isCreate = true;
+  $scope.text = '';
+  $scope.cancel = function() {
+    $location.path('/');
+  }
+  $scope.save = function() {
+    var noteId = board.createNote({text:$scope.text})
+    $location.path('/');
+  }
+})
 .controller('ViewNoteCtrl', function ($scope, $routeParams, $location, board) {
+  $scope.isCreate = false;
   var noteId = $routeParams.noteId;
   var note = board.findNote(noteId);
   $scope.text = note.text;
+  $scope.cancel = function() {
+    $location.path('/');
+  }
   $scope.save = function() {
     board.setNoteAttr(noteId, {text: $scope.text});
     $location.path('/');
