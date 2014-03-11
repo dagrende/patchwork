@@ -54,7 +54,10 @@ app.use(function(req, res, next){
     next();
 });
 
-console.log('NODE_ENV',process.env.NODE_ENV);
+app.use(function(req, res, next){
+  res.set('Cache-Control', 'public, max-age=5000');
+  next();
+});
 
 app.configure('livereload', function(){
   app.use(require('connect-livereload')());
