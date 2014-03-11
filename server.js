@@ -54,6 +54,8 @@ app.use(function(req, res, next){
     next();
 });
 
+console.log('NODE_ENV',process.env.NODE_ENV);
+
 app.configure('livereload', function(){
   app.use(require('connect-livereload')());
   app.use(express.static(__dirname + '/.tmp'));
@@ -64,6 +66,11 @@ app.configure('dev', function(){
   app.use(express.static(__dirname + '/.tmp'));
   app.use(express.static(__dirname + '/app'));
 });
+
+if (process.env.NODE_ENV === undefined) {
+  app.use(express.static(__dirname + '/.tmp'));
+  app.use(express.static(__dirname + '/app'));
+}
 
 app.configure('test', function(){
   app.use(express.static(__dirname + '/.tmp'));
