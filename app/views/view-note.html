@@ -1,10 +1,10 @@
-<div class="fill-form-with-footer">
-    <div class="toprow gray-bottom-divider">
-        <a class="left-button" ng-click="cancel()"><img src="images/x.png"/></a>
-        <div class="flex-fill"></div>
-        <a class="right-button" ng-click="deleteNote()" ng-hide="isCreate"><img src="images/delete.png"/></a>
-        <div class="flex-fill"></div>
-        <a class="right-button" ng-click="save()"><img src="images/done-check.png"/></a>
-    </div>
-    <textarea class="flex-fill" ng-model="text" autofocus="true"></textarea>
-</div>
+<table class="note-editor">
+    <tr class="border-below"><td><a class="left" ng-click="cancel()"><img src="images/x.png"/></a></td>
+        <td class="center"><a ng-click="deleteNote()" ng-hide="isCreate"><img src="images/delete.png"/></a></td>
+        <td class="right"><a ng-click="save()"><img src="images/done-check.png"/></a></td>
+    </tr>
+    <tr class="fill-rest"><td colspan="3">
+        <textarea ng-model="text" autofocus="true"></textarea>
+        </td>
+    </tr>
+</table>

@@ -62,22 +62,22 @@ angular.module('patchworkApp', [
   $scope.base = findPos($('#board-notes').get(0));
 
   $scope.editNote = function(id) {
-    window.location.href = '#/edit/' + id;
+    window.location.href = '#edit/' + id;
   };
 
   $scope.createNote = function() {
-    window.location.href = '#/create';
+    window.location.href = '#create';
   };
 })
 .controller('CreateNoteCtrl', function ($scope, $routeParams, $location, board) {
   $scope.isCreate = true;
   $scope.text = '';
   $scope.cancel = function() {
-    $location.path('/');
+    $location.path('#');
   }
   $scope.save = function() {
     var noteId = board.createNote({text:$scope.text})
-    $location.path('/');
+    $location.path('#');
   }
 })
 .controller('ViewNoteCtrl', function ($scope, $routeParams, $location, board) {
@@ -86,15 +86,15 @@ angular.module('patchworkApp', [
   var note = board.findNote(noteId);
   $scope.text = note.text;
   $scope.cancel = function() {
-    $location.path('/');
+    $location.path('#');
   }
   $scope.save = function() {
     board.setNoteAttr(noteId, {text: $scope.text});
-    $location.path('/');
+    $location.path('#');
   }
   $scope.deleteNote = function () {
     board.deleteNote(noteId);
-    $location.path('/');
+    $location.path('#');
   };
 })
 .directive('draggableFrom', function(board) {

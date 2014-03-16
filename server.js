@@ -54,12 +54,13 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use(function(req, res, next){
-  res.set('Cache-Control', 'public, max-age=5000');
+/*app.use(function(req, res, next){
+//  res.set('Cache-Control', 'public, max-age=5000');
   next();
-});
+});*/
 
 app.configure('livereload', function(){
+  console.log("server livereload");
   app.use(require('connect-livereload')());
   app.use(express.static(__dirname + '/.tmp'));
   app.use(express.static(__dirname + '/app'));

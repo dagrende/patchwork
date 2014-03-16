@@ -66,7 +66,7 @@ module.exports = function (grunt) {
         options: {
           script: 'server.js',
           debug: true,
-          node_env: 'dev'
+          node_env: 'livereload'
         }
       },
       test: {
