@@ -55,8 +55,6 @@ angular.module('patchworkApp', [
     }
     return {x:curleft, y:curtop};
   }
-  $('#board').height(window.innerHeight + 'px');
-  //board.notes = board.notes.filter(function(item) {return item.text;});
   $scope.getNotes = board.getNotes;
   $scope.getBoardNotes = board.getBoardNotes;
   $scope.base = findPos($('#board-notes').get(0));
@@ -68,6 +66,14 @@ angular.module('patchworkApp', [
   $scope.createNote = function() {
     window.location.href = '#create';
   };
+  function adjustScroller() {
+    $('.my-notes').css('max-width', window.innerWidth - 100);
+    console.log("resize");
+  }
+  $(function() {
+     adjustScroller();
+  });
+  window.onresize = adjustScroller;
 })
 .controller('CreateNoteCtrl', function ($scope, $routeParams, $location, board) {
   $scope.isCreate = true;
@@ -119,6 +125,7 @@ angular.module('patchworkApp', [
         var noteId = attr.draggableFrom;
         var note = board.findNote(noteId);
         var base = $('#board-notes').offset();
+        console.log('base',base,'ev',ev);
         var x = ev.pageX - ev.offsetX - base.left;
         var y = ev.pageY - ev.offsetY - base.top;
         if (y < 0) {
@@ -130,7 +137,8 @@ angular.module('patchworkApp', [
         scope.$apply();
       };
       $(elm).draggable({
-        stop: dragEnd
+        stop: dragEnd,
+        helper: 'clone'
       });
     }
   };

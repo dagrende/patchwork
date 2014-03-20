@@ -1,3 +1,5 @@
+/* note editor */
+
 .note-editor {
     width: 100%;
     height: 100%;
@@ -32,148 +34,57 @@
     border: solid 1px;
 }
 
-.fill-form-with-footer {
-    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-    display: -ms-flexbox;      /* TWEENER - IE 10 */
-    display: -webkit-flex;     /* NEW - Chrome */
-    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
 
-    -moz-flex-direction:column;
-    -ms-flex-direction:column;
-    -webkit-flex-direction:column;
-    flex-direction:column;
+/* board */
+
+#board {
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8ff;
 }
-
-.toprow {
-    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-    display: -ms-flexbox;      /* TWEENER - IE 10 */
-    display: -webkit-flex;     /* NEW - Chrome */
-    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
-
-    -moz-flex-direction:row;
-    -ms-flex-direction:row;
-    -webkit-flex-direction:row;
-    flex-direction:row;
-
-    -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
-    -moz-box-flex: 1;         /* OLD - Firefox 19- */
-    width: 20%;               /* For old syntax, otherwise collapses. */
-    -webkit-flex: 1;          /* Chrome */
-    -ms-flex: 1;              /* IE 10 */
-    flex: 1;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
-
-    align-items: center;
+.notes-row {
+    border-bottom: 1px solid #000000;
+    padding: 0;
 }
-
-.gray-bottom-divider {
-    border: 0;
-    border-bottom:0.1em solid #c9c9c9;
+.my-notes {
+    width: 100%;
 }
+.my-note, .new-note, .board-note {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 70%;
+    display: table-cell;
+    width: 4em;
+    min-width: 4em;
+    height: 5em;
+    max-height: 5em;
+    overflow: hidden;
 
-.left-button {
-    margin: 0 0 0 0.5em;
+    padding: 0.1em 0.1em 0.1em 0.3em;
+    border-right: 1px solid #d3d3d3;
+    border-bottom: 1px solid #c3c3c3;
+
+    margin-right: 0.2em;
+    background-color: #ffffa0;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+.my-note {
+}
+.new-note {
+    padding: .3em;
+    text-align:center;
     vertical-align: middle;
 }
-
-.right-button {
-    margin: 0 0.5em 0 0;
-    vertical-align: middle;
+.board-note {
 }
-
-.centered-title {
-    -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
-    -moz-box-flex: 1;         /* OLD - Firefox 19- */
-    width: 20%;               /* For old syntax, otherwise collapses. */
-    -webkit-flex: 1;          /* Chrome */
-    -ms-flex: 1;              /* IE 10 */
-    flex: 1;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
-
-    text-align: center;
-    font-size: 140%;
-    font-weight: 600;
-    padding: 0.2em 0 0.3em 0;
+.scroll-pane {
+    overflow:scroll;
+    padding: 0;
     margin: 0;
 }
 
-.flex-fill {
-    -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
-    -moz-box-flex: 1;         /* OLD - Firefox 19- */
-    width: 20%;               /* For old syntax, otherwise collapses. */
-    -webkit-flex: 1;          /* Chrome */
-    -ms-flex: 1;              /* IE 10 */
-    flex: 1;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
-}
-
-#board {
-    width: 100%;
-}
-#board-notes {
-}
-
-.my-notes {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: row;
-    -webkit-flex-direction: row;
-}
-.notes-row {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: row;
-    -webkit-flex-direction: row;
-    border-bottom: 1px solid #000000;
-    padding: 0.2em 0.2em 0.15em 0.2em;
-    background-color: #f8f8ff;
-}
-
-.note, .new-note {
-    font-size: 70%;
-    font-family: Arial, Helvetica, sans-serif;
-    width: 4em;
-    height: 6em;
-    padding: 0em 0.2em;
-    border: 1px solid #000000;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.note {
-    margin-right: 0.2em;
-    background-color: #ffffa0;
-    white-space: pre-wrap;      /* CSS3 */
-    white-space: -moz-pre-wrap; /* Firefox */
-    white-space: -o-pre-wrap;   /* Opera 7 */
-    word-wrap: break-word;      /* IE */
-}
-
-.new-note {
-    background-color: #c0ffc0;
-    display:table-cell; vertical-align:middle; text-align:center
-}
-
-.new-note img {
-    margin-top: 1.5em;
-}
-
-.fill-form-with-footer {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
-}
-
-.flex-fill {
-    flex: 1;
-    -webkit-flex: 1;
-}
-
-/* Space out content a bit */
 body {
     margin: 0;
     padding-top: 0px;

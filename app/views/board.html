@@ -1,14 +1,17 @@
-<div id="board">
-    <div class="notes-row">
-        <div class="my-notes">
-            <div class="note" draggable-from="{{note.id}}" ng-repeat="note in getNotes()">{{note.text}}</div>
-        </div>
-        <div class="flex-fill"></div>
-        <div class="new-note" ng-click="createNote()"><img src="images/plus.png"> </div>
-    </div>
-    <div id="board-notes">
-        <div class="note" draggable-on-board="{{note.note.id}}"
-             style="position: absolute; left: {{base.x + note.x}}px; top: {{base.y + note.y}}px;"
-             ng-repeat="note in getBoardNotes()">{{note.note.text}}</div>
-    </div>
+<table id="board">
+    <tr class="notes-row">
+        <td class="my-notes">
+            <div class="scroll-pane">
+                <div class="note my-note" draggable-from="{{note.id}}" ng-repeat="note in getNotes()">{{note.text}}</div>
+            </div>
+        </td>
+        <td>
+            <div class="note new-note" ng-click="createNote()"><img src="images/plus.png"> </div>
+        </td>
+    </tr>
+</table>
+<div id="board-notes">
+    <div class="note board-note" draggable-on-board="{{note.note.id}}"
+         style="position: absolute; left: {{base.x + note.x}}px; top: {{base.y + note.y}}px;"
+         ng-repeat="note in getBoardNotes()">{{note.note.text}}</div>
 </div>
