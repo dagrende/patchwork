@@ -27,7 +27,6 @@
 
 .note-editor textarea {
     width: 100%;
-
     -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
     -moz-box-sizing: border-box; /* FF1+ */
     box-sizing: border-box; /* Chrome, IE8, Opera, Safari 5.1*/
@@ -37,13 +36,13 @@
 
 /* board */
 
-#board {
+#toprow {
     margin: 0;
     padding: 0;
     background-color: #f8f8ff;
+    border-bottom: 1px solid #e0e0e0;
 }
 .notes-row {
-    border-bottom: 1px solid #000000;
     padding: 0;
 }
 .my-notes {
@@ -70,7 +69,8 @@
     white-space: -o-pre-wrap;
     word-wrap: break-word;
 }
-.my-note {
+.my-note *, .board-note * {
+    pointer-events: none;
 }
 .new-note {
     padding: .3em;

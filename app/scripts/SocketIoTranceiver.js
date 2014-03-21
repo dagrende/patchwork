@@ -11,7 +11,7 @@
           args: map2Array(args),
           result: result
         };
-        console.log("emit",JSON.stringify(data));
+//        console.log("emit",JSON.stringify(data));
         socket.emit('boardModelEvent', data);
       };
 
@@ -41,11 +41,11 @@
           }
           this.currentServerSessionId = data.serverSessionId;
           if (shouldProcessMessage) {
-            console.log("receive and process",data);
+//            console.log("receive and process",data);
             this.lastMessageNo = data.messageNo;
             onReceiveHandler(data.methodName, data.args);
           } else {
-            console.log("receive and skip",data);
+//            console.log("receive and skip",data);
           }
         }
       };

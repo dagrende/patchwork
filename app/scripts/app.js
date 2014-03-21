@@ -68,7 +68,6 @@ angular.module('patchworkApp', [
   };
   function adjustScroller() {
     $('.my-notes').css('max-width', window.innerWidth - 100);
-    console.log("resize");
   }
   $(function() {
      adjustScroller();
@@ -107,10 +106,16 @@ angular.module('patchworkApp', [
   return {
     restrict: 'A',
     link: function(scope, elm, attr) {
-      var downX, downY;
+      var noteId = attr.draggableFrom;
+      var note = board.findNote(noteId);
+      var base = $('#board-notes').offset();
+      var elmOffset = $(elm).offset();
+      var downX, downY, offsetX, offsetY;
       $(elm).mousedown(function(ev) {
         downX = ev.clientX;
         downY = ev.clientY;
+        offsetX = downX - elmOffset.left;
+        offsetY = downY - elmOffset.top;
       });
       $(elm).mouseup(function(ev) {
         var dx = ev.clientX - downX;
@@ -122,12 +127,9 @@ angular.module('patchworkApp', [
       });
       var dragEnd = function(ev, ui) {
         // drag
-        var noteId = attr.draggableFrom;
-        var note = board.findNote(noteId);
-        var base = $('#board-notes').offset();
-        console.log('base',base,'ev',ev);
-        var x = ev.pageX - ev.offsetX - base.left;
-        var y = ev.pageY - ev.offsetY - base.top;
+        console.log('base',base,'ev',ev,'note',note,'down',downX,downY);
+        var x = ev.pageX - offsetX - base.left;
+        var y = ev.pageY - offsetY - base.top;
         if (y < 0) {
           ui.helper[0].style.left = 0;
           ui.helper[0].style.top = 0;
@@ -146,7 +148,10 @@ angular.module('patchworkApp', [
   return {
     restrict: 'A',
     link: function(scope, elm, attr) {
-      var downX, downY;
+      var noteId = attr.draggableOnBoard;
+      var boardNote = board.findBoardNote(noteId);
+      var base = $('#board-notes').offset();
+      var downX, downY, offsetX, offsetY;
       $(elm).mousedown(function(ev) {
         downX = ev.clientX;
         downY = ev.clientY;
@@ -160,16 +165,15 @@ angular.module('patchworkApp', [
         }
       });
       var dragEnd = function(ev) {
-        var noteId = attr.draggableOnBoard;
-        var boardNote = board.findBoardNote(noteId);
-        var base = $('#board-notes').offset();
-        var x = ev.pageX - ev.offsetX - base.left;
-        var y = ev.pageY - ev.offsetY - base.top;
+        var x = ev.pageX - base.left;
+        var y = ev.pageY - base.top;
         if (y < 0) {
           // drop in my notes area
           board.unplaceNote(noteId);
         } else{
-          board.moveBoardNote(noteId, x, y);
+          var dx = ev.clientX - downX;
+          var dy = ev.clientY - downY;
+          board.moveBoardNote(noteId, boardNote.x + dx, boardNote.y + dy);
         }
         scope.$apply();
       };
