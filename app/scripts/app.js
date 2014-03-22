@@ -109,11 +109,11 @@ angular.module('patchworkApp', [
       var noteId = attr.draggableFrom;
       var note = board.findNote(noteId);
       var base = $('#board-notes').offset();
-      var elmOffset = $(elm).offset();
       var downX, downY, offsetX, offsetY;
       $(elm).mousedown(function(ev) {
         downX = ev.clientX;
         downY = ev.clientY;
+        var elmOffset = $(elm).offset();
         offsetX = downX - elmOffset.left;
         offsetY = downY - elmOffset.top;
       });
